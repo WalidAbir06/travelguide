@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Django Project{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Add your custom CSS links or inline styles here -->
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-300">
+        <div class="container mx-auto px-4">
+            <nav class="flex items-center justify-between py-4">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="/" class="text-lg font-semibold text-gray-800">Travel Booking Platform</a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="flex items-center">
+                    <ul class="flex space-x-6">
+                        <li><a href="/" class="text-gray-600 hover:text-gray-800">Home</a></li>
+                        <li><a href="/signup/" class="text-gray-600 hover:text-gray-800">Sign Up</a></li>
+                        <li><a href="/login/" class="text-gray-600 hover:text-gray-800">Login</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}
+            <!-- Default content if child template does not override -->
+            <h1 class="text-3xl font-semibold text-gray-800 mb-4">Welcome to Travel Booking Platform</h1>
+            <p class="text-gray-600">This is the base template. Child templates will override this block.</p>
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-300">
+        <div class="container mx-auto px-4 py-4 text-center text-gray-600">
+            <!-- Add your footer content here -->
+            <!-- <p>&copy; 2024 My Django Project. All rights reserved.</p> -->
+        </div>
+    </footer>
+
+    <!-- Add your JavaScript links or inline scripts here -->
+
+</body>
+</html>

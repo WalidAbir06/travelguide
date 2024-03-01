@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto my-10 bg-gray-200 rounded-lg shadow-md p-6">
+    <h2 class="text-2xl font-semibold mb-4">Sign up</h2>
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label for="id_username" class="block text-sm font-medium text-gray-700">Username</label>
+            <input type="text" name="username" id="id_username" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input type="email" name="email" id="id_email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_phone" class="block text-sm font-medium text-gray-700">Phone</label>
+            <input type="tel" name="phone" id="id_phone" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_age" class="block text-sm font-medium text-gray-700">Age</label>
+            <input type="number" name="age" id="id_age" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" name="name" id="id_name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_gender" class="block text-sm font-medium text-gray-700">Gender</label>
+            <select name="gender" id="id_gender" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-100">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <div>
+            <label for="id_password1" class="block text-sm font-medium text-gray-700">Password</label>
+            <input type="password" name="password1" id="id_password1" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <div>
+            <label for="id_password2" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+            <input type="password" name="password2" id="id_password2" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-100">
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+            Sign up
+        </button>
+    </form>
+</div>
+{% endblock %}

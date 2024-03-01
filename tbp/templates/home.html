@@ -1,0 +1,51 @@
+<!-- home.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Home{% endblock %}</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Your custom CSS or additional styles here -->
+    <style>
+        /* Add your custom styles here */
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto px-4 py-8">
+        <!-- Check if user is authenticated -->
+        {% if user.is_authenticated %}
+            <div class="text-center mb-4">
+                <!-- Display username -->
+                <p class="text-xl font-semibold text-gray-800">Hello, {{ user.username }}!</p>
+            </div>
+            <div class="flex justify-center space-x-4 mb-4">
+                <!-- Logout form -->
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded">Logout</button>
+                </form>
+                <!-- Book Flight button -->
+                <a href="{% url 'book_flight' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded">Book Flight</a>
+                <!-- Reset Password link -->
+                <a href="{% url 'reset_password' %}" class="bg-gray-500 hover:bg-gray-600 text-white font-semibold px-4 py-2 rounded">Reset Password</a>
+
+            </div>
+            <!-- Add your custom button here -->
+
+        {% else %}
+            <div class="text-center mb-4">
+                <!-- If user is not authenticated, show login and signup links -->
+                <div class="flex justify-center">
+                    <a href="{% url 'login' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded mr-4">Login</a>
+                    <a href="{% url 'signup' %}" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded">Signup</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
