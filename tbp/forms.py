@@ -82,7 +82,7 @@ class BookingForm(forms.Form):
                 raise forms.ValidationError('This seat is already booked for the selected date.')
 
 
-walid =  "ASS"
+
 
 # forms.py
 # from django import forms
