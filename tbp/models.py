@@ -137,9 +137,11 @@ class Seat(models.Model):
     # Define model fields
     plane = models.ForeignKey(Plane, on_delete=models.CASCADE)
     seat_number = models.CharField(max_length=10)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0)
-    seat_type = models.CharField(max_length=20, choices=SEAT_TYPE_CHOICES, default = 'Economy')
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    seat_type = models.CharField(max_length=20, choices=SEAT_TYPE_CHOICES, default='Economy')
 
+    def __str__(self):
+        return f"{self.plane.name} - Seat {self.seat_number}"
 class SeatBooking(models.Model):
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

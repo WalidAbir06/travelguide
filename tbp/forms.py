@@ -144,6 +144,8 @@ class BookingForm(forms.Form):
     planes = forms.ModelChoiceField(queryset=Plane.objects.all(), label='Select Plane')
     seats = forms.ModelChoiceField(queryset=Seat.objects.all(), label='Select Seat')
     date = forms.DateField(label='Date', widget=forms.DateInput(attrs={'type': 'date'}))
+    departure_country = forms.CharField(max_length=100, label='Departure Country', required=False)
+    arrival_country = forms.CharField(max_length=100, label='Arrival Country', required=False)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -157,7 +159,6 @@ class BookingForm(forms.Form):
             raise forms.ValidationError('This seat is already booked on the selected date.')
 
         return cleaned_data
-
 class SearchForm(forms.Form):
     airline = forms.ModelChoiceField(queryset=Airline.objects.all(), required=False)
     plane = forms.ModelChoiceField(queryset=Plane.objects.all(), required=False)
