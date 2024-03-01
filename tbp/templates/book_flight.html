@@ -1,40 +1,4 @@
-{% comment %} <!-- book_flight.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book a Flight</title>
-</head>
-<body>
-    <h1>Book a Flight</h1>
-    <form method="post">
-        {% csrf_token %}
-        <label for="id_airlines">Select Airline:</label>
-        {{ form.airlines }}
-        <br>
-        <label for="id_planes">Select Plane:</label>
-        {{ form.planes }}
-        <br>
-        <label for="id_seats">Select Seat:</label>
-        {{ form.seats }}
-        <br>
-        <label for="id_departure_country">Departure Country:</label>
-        {{ form.departure_country }}
-        <br>
-        <label for="id_arrival_country">Arrival Country:</label>
-        {{ form.arrival_country }}
-        <br>
-        <label for="id_date">Date:</label>
-        {{ form.date }}
-        <br>
-        <button type="submit">Book Now</button>
-    </form>
-</body>
-</html>  {% endcomment %}
 
-
-<!-- book_flight.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,11 +24,6 @@
         <label for="id_seats">Select Seat:</label>
         {{ form.seats }}
         <br>
-        <label for="id_departure_country">Departure Country:</label>
-        {{ form.departure_country }}
-        <br>
-        <label for="id_arrival_country">Arrival Country:</label>
-        {{ form.arrival_country }}
         <br>
         <label for="id_date">Date:</label>
         {{ form.date }}

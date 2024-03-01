@@ -204,6 +204,10 @@ def book_flight(request):
             arrival_country = form.cleaned_data['arrival_country']
             date = form.cleaned_data['date']
 
+            # Retrieve seat type and price
+            seat_type = seat.seat_type
+            price = seat.price
+
             try:
                 booking = SeatBooking.objects.create(
                     seat=seat,

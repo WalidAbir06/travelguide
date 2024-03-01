@@ -107,11 +107,14 @@ class Airline(models.Model):
         return self.name
 
 
+
 class Plane(models.Model):
     airline = models.ForeignKey(Airline, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
     capacity = models.IntegerField()
+    arrival_country = models.CharField(max_length=100, default = "Bangladesh")  
+    departure_country = models.CharField(max_length=100, default = "India")  
 
     def __str__(self):
         return f"{self.airline.name} - {self.name}"
@@ -119,12 +122,23 @@ class Plane(models.Model):
 
 User = get_user_model()
 
+
 class Seat(models.Model):
+    # Define choices for seat types
+    ECONOMY = 'Economy'
+    BUSINESS = 'Business'
+    FIRST_CLASS = 'First Class'
+    SEAT_TYPE_CHOICES = [
+        (ECONOMY, 'Economy'),
+        (BUSINESS, 'Business'),
+        (FIRST_CLASS, 'First Class'),
+    ]
+    
+    # Define model fields
     plane = models.ForeignKey(Plane, on_delete=models.CASCADE)
     seat_number = models.CharField(max_length=10)
-
-    def __str__(self):
-        return f"{self.plane.name} - Seat {self.seat_number}"
+    price = models.DecimalField(max_digits=10, decimal_places=2, default = 0)
+    seat_type = models.CharField(max_length=20, choices=SEAT_TYPE_CHOICES, default = 'Economy')
 
 class SeatBooking(models.Model):
     seat = models.ForeignKey(Seat, on_delete=models.CASCADE)

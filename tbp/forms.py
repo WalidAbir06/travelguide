@@ -143,8 +143,6 @@ class BookingForm(forms.Form):
     airlines = forms.ModelChoiceField(queryset=Airline.objects.all(), label='Select Airline')
     planes = forms.ModelChoiceField(queryset=Plane.objects.all(), label='Select Plane')
     seats = forms.ModelChoiceField(queryset=Seat.objects.all(), label='Select Seat')
-    departure_country = forms.CharField(label='Departure Country', max_length=100)
-    arrival_country = forms.CharField(label='Arrival Country', max_length=100)
     date = forms.DateField(label='Date', widget=forms.DateInput(attrs={'type': 'date'}))
 
     def clean(self):
