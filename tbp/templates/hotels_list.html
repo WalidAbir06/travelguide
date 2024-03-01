@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels List</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (assuming Bootstrap is already included in your project) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Hotels List</h1>
+        <ul class="list-disc pl-6">
+            {% for hotel in hotels %}
+                <li class="mb-4">
+                    <span class="font-bold">{{ hotel.name }}</span> - {{ hotel.location }}
+                    <ul class="list-disc pl-6">
+                        {% for room in hotel.room_set.all %}
+                            <li>Room: {{ room.room_number }}, Type: {{ room.get_type_display }}, Price: ${{ room.price }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- Buttons -->
+        <div class="mt-8">
+            <a href="{% url 'advanced_search' %}" class="btn btn-primary mr-4">Advanced Search</a>
+            <a href="{% url 'book_room' %}" class="btn btn-primary">Book Room</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agencies List</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (assuming Bootstrap is already included in your project) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-bold mb-6">Agencies List</h1>
+        <ul>
+            {% for agency in agencies %}
+                <li class="mb-6">
+                    <h2 class="text-xl font-semibold">{{ agency.name }}</h2>
+                    <p class="text-gray-600">Location: {{ agency.location }}</p>
+                    <h3 class="text-lg font-semibold mt-4">Vehicles</h3>
+                    <ul class="list-disc pl-6">
+                        {% for vehicle in agency.vehicle_set.all %}
+                            <li class="mb-2">
+                                <p>Car Type: {{ vehicle.car_type }}</p>
+                                <p>License No: {{ vehicle.license_no }}</p>
+                                <p>Price: ${{ vehicle.price }}</p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- Buttons -->
+        <div class="mt-8">
+            <form action="{% url 'advanced_car_search' %}" method="get" class="inline-block mr-4">
+                <button type="submit" class="btn btn-primary">Advanced Car Search</button>
+            </form>
+            <form action="{% url 'book_vehicle' %}" method="get" class="inline-block">
+                <button type="submit" class="btn btn-primary">Book Vehicle</button>
+            </form>
+        </div>
+    </div>
+</body>

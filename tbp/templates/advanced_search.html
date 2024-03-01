@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-200 p-8">
+    <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg px-8 py-6">
+        <h1 class="text-3xl font-semibold mb-6">Advanced Search</h1>
+        <form method="GET" class="mb-8">
+            {{ form.as_p }}
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded inline-block">Search</button>
+        </form>
+        <hr class="mb-6">
+        {% if hotels %}
+            <h2 class="text-xl font-semibold mb-4">Search Results</h2>
+            <ul>
+                {% for hotel in hotels %}
+                    <li class="mb-2">{{ hotel.name }} - {{ hotel.location }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded inline-block mt-8">Home</a>
+        {% endif %}
+    </div>
+</body>
+</html>

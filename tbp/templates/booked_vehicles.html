@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booked Vehicles</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (assuming Bootstrap is already included in your project) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles */
+        .container {
+            margin: 0 auto;
+            max-width: 800px;
+        }
+        .list-item {
+            padding: 10px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .list-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="container mx-auto bg-white shadow-md rounded px-8 py-6">
+        <h1 class="text-3xl font-semibold mb-6">Booked Vehicles</h1>
+
+        <!-- Display past booked vehicles -->
+        <h2 class="text-xl font-semibold mb-4">Past Booked Vehicles</h2>
+        <ul>
+            {% for vehicle_booking in past_booked_vehicles %}
+                <li class="list-item">{{ vehicle_booking.vehicle }} - Agency: {{ vehicle_booking.vehicle.agency.name }} - Booked from {{ vehicle_booking.booking_date }} to {{ vehicle_booking.checkout_date }}</li>
+            {% empty %}
+                <li class="list-item">No past booked vehicles.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Display upcoming booked vehicles -->
+        <h2 class="text-xl font-semibold mt-8 mb-4">Upcoming Booked Vehicles</h2>
+        <ul>
+            {% for vehicle_booking in upcoming_booked_vehicles %}
+                <li class="list-item">{{ vehicle_booking.vehicle }} - Agency: {{ vehicle_booking.vehicle.agency.name }} - Booked from {{ vehicle_booking.booking_date }} to {{ vehicle_booking.checkout_date }}</li>
+            {% empty %}
+                <li class="list-item">No upcoming booked vehicles.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Display current booked vehicles -->
+        <h2 class="text-xl font-semibold mt-8 mb-4">Current Booked Vehicles</h2>
+        <ul>
+            {% for vehicle_booking in current_booked_vehicles %}
+                <li class="list-item">{{ vehicle_booking.vehicle }} - Agency: {{ vehicle_booking.vehicle.agency.name }} - Booked from {{ vehicle_booking.booking_date }} to {{ vehicle_booking.checkout_date }}</li>
+            {% empty %}
+                <li class="list-item">No current booked vehicles.</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Button to redirect to home page -->
+        {% if user.is_authenticated %}
+            <a href="{% url 'home' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded inline-block mt-8">Home</a>
+        {% endif %}
+    </div>
+</body>
+</html>

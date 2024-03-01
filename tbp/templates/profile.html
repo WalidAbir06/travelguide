@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Information</title>
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Bootstrap CSS (assuming Bootstrap is already included in your project) -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="container mx-auto bg-white shadow-md rounded px-8 py-6">
+        <h1 class="text-3xl font-semibold mb-6">Profile Information</h1>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Username:</label>
+            <p class="text-gray-800">{{ profile.username }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Email:</label>
+            <p class="text-gray-800">{{ profile.email }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Phone:</label>
+            <p class="text-gray-800">{{ profile.phone }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Age:</label>
+            <p class="text-gray-800">{{ profile.age }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Name:</label>
+            <p class="text-gray-800">{{ profile.name }}</p>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2">Gender:</label>
+            <p class="text-gray-800">{{ profile.gender }}</p>
+        </div>
+        <!-- Buttons -->
+        <div class="flex flex-wrap">
+            <!-- Button to update profile -->
+            <a href="{% url 'update_profile' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded inline-block mb-4 mr-4">Update Profile</a>
+            <!-- Button to view booked rooms -->
+            <a href="{% url 'booked_rooms' %}" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-4 py-2 rounded inline-block mb-4 mr-4">View Booked Rooms</a>
+            <!-- Button to view booked vehicles -->
+            <a href="{% url 'booked_vehicles' %}" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold px-4 py-2 rounded inline-block mb-4">View Booked Vehicles</a>
+        </div>
+    </div>
+</body>
+</html>
