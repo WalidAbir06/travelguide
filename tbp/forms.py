@@ -6,7 +6,9 @@ from .models import traveler
 from .models import BookRoom,Room,Hotel,BookVehicle,Agency,Vehicle
 from django.core.exceptions import ValidationError
 User = get_user_model()
-
+#Ishan's code
+from .models import Airline, Plane, Seat, SeatBooking
+from datetime import date
 
 class TravelerRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -135,3 +137,30 @@ class AdvancedCarSearchForm(forms.Form):
             queryset = queryset.filter(vehicle__car_type=car_type)
 
         return queryset.distinct()
+    
+#Ishan's code
+class BookingForm(forms.Form):
+    airlines = forms.ModelChoiceField(queryset=Airline.objects.all(), label='Select Airline')
+    planes = forms.ModelChoiceField(queryset=Plane.objects.all(), label='Select Plane')
+    seats = forms.ModelChoiceField(queryset=Seat.objects.all(), label='Select Seat')
+    departure_country = forms.CharField(label='Departure Country', max_length=100)
+    arrival_country = forms.CharField(label='Arrival Country', max_length=100)
+    date = forms.DateField(label='Date', widget=forms.DateInput(attrs={'type': 'date'}))
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        # Get the selected seat and date
+        selected_seat = cleaned_data.get('seats')
+        selected_date = cleaned_data.get('date')
+
+        # Check if the seat is already booked on the selected date
+        if SeatBooking.objects.filter(seat=selected_seat, date=selected_date).exists():
+            raise forms.ValidationError('This seat is already booked on the selected date.')
+
+        return cleaned_data
+
+class SearchForm(forms.Form):
+    airline = forms.ModelChoiceField(queryset=Airline.objects.all(), required=False)
+    plane = forms.ModelChoiceField(queryset=Plane.objects.all(), required=False)
+    date = forms.DateField(label='Date', widget=forms.DateInput(attrs={'type': 'date'}))

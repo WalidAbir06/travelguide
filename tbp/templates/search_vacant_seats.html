@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Search for Vacant Seats</h2>
+
+    <form method="get" action="{% url 'search_vacant_seats' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+
+    {% if vacant_seats %}
+        <h3>Vacant Seats</h3>
+        <ul>
+            {% for seat in vacant_seats %}
+                <li>{{ seat.seat_number }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No vacant seats found.</p>
+    {% endif %}
+{% endblock %}

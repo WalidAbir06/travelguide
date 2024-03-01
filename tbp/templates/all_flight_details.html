@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>All Flight Details</h2>
+
+    <ul>
+        {% for flight in all_flights %}
+            <li>
+                {{ flight.name }} - {{ flight.model }} ({{ flight.capacity }} seats)
+                <a href="{% url 'view_flight_details' flight.id %}">View Details</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

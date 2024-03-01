@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Vacant Seats{% endblock %}
+
+{% block content %}
+  <h2>Vacant Seats</h2>
+
+  {% if vacant_seats %}
+    <p>Total vacant seats: {{ vacant_seats.count }}</p>
+    <ul>
+      {% for seat in vacant_seats %}
+        <li>{{ seat }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No vacant seats found.</p>
+  {% endif %}
+
+  <!-- Include the form for further searches if needed -->
+  <form method="get" action="{% url 'search_vacant_seats' %}">
+    {{ form.as_p }}
+    <button type="submit">Search Again</button>
+  </form>
+{% endblock %}
+
+

@@ -1,0 +1,16 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Flight Details{% endblock %}
+
+{% block content %}
+    <h2>Flight Details</h2>
+
+    <p>Airline: {{ flight.airline.name }}</p>
+    <p>Plane: {{ flight.name }}</p>
+    <p>Model: {{ flight.model }}</p>
+    <!-- Add more details as needed -->
+
+    <!-- Change the link to redirect to the home page -->
+    <a href="{% url 'home' %}">Back to Home</a>
+{% endblock %}

@@ -1,4 +1,5 @@
 
+from django.forms import ValidationError
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from .forms import TravelerLoginForm, TravelerRegistrationForm
@@ -13,6 +14,11 @@ from .models import Hotel,Room,Vehicle,Agency
 from .forms import AdvancedSearchForm,AdvancedCarSearchForm,BookRoom,BookVehicle
 from django.utils import timezone
 from django.db.models import Prefetch
+from .models import SeatBooking, Plane
+from .forms import SearchForm
+from .forms import BookingForm
+from django.shortcuts import get_object_or_404
+
 
 
 
@@ -183,3 +189,76 @@ def booked_vehicles(request):
         'upcoming_booked_vehicles': upcoming_booked_vehicles,
         'current_booked_vehicles': current_booked_vehicles
     })    
+    
+#Ishan's code
+
+def book_flight(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            # Process the form data and save the booking
+            airline = form.cleaned_data['airlines']
+            plane = form.cleaned_data['planes']
+            seat = form.cleaned_data['seats']
+            departure_country = form.cleaned_data['departure_country']
+            arrival_country = form.cleaned_data['arrival_country']
+            date = form.cleaned_data['date']
+
+            try:
+                booking = SeatBooking.objects.create(
+                    seat=seat,
+                    user=request.user,  # Assuming the user is authenticated
+                    date=date,
+                )
+            except ValidationError as e:
+                messages.error(request, e.message)
+                return redirect('book_flight')
+
+            # Redirect to a confirmation page or any other page
+            messages.success(request, 'Booking successful!')
+            return redirect('booking_confirmation')  # Adjust the URL name as needed
+        else:
+            # If form is not valid, re-render the form with error messages
+            messages.error(request, 'This seat is already booked for the selected date.')
+    else:
+        form = BookingForm()
+
+    return render(request, 'book_flight.html', {'form': form})
+
+def booking_confirmation(request):
+    return render(request, 'booking_confirmation.html')
+
+def search_vacant_seats(request):
+    form = SearchForm(request.GET)
+
+    if form.is_valid():
+        airline = form.cleaned_data.get('airline')
+        plane = form.cleaned_data.get('plane')
+        date = form.cleaned_data.get('date')
+
+        if plane is not None:
+            # Get all seats from the specified plane
+            all_seats = plane.seat_set.all()
+
+            # Filter seats that are not booked on the specified date
+            booked_seats = SeatBooking.objects.filter(date=date, seat__in=all_seats).values_list('seat', flat=True)
+            vacant_seats = all_seats.exclude(id__in=booked_seats)
+
+            return render(request, 'vacant_seats.html', {'form': form, 'vacant_seats': vacant_seats})
+
+    return render(request, 'search_vacant_seats.html', {'form': form})
+
+def view_flight_details(request, flight_id):
+    # Retrieve the specific flight using the flight_id
+    flight = get_object_or_404(Plane, pk=flight_id)
+
+    # You can customize this rendering based on your model structure
+    return render(request, 'flight_details.html', {'flight': flight})
+
+def home(request):
+    available_flights = Plane.objects.all()  # Update this query as needed
+    return render(request, 'home.html', {'available_flights': available_flights})
+
+def view_all_flight_details(request):
+    all_flights = Plane.objects.all()  # Retrieve all flights from the database
+    return render(request, 'all_flight_details.html', {'all_flights': all_flights})
